@@ -1,4 +1,6 @@
 ## The road 'till now and the motivation for this Jackson-deserialization-PoC:
+I've been challenged to write a _Proof of Concept_ that's based on a Spring web app and exploits a Jackson Deserialization vulnerability.
+
 Since I haven't coded a single line of Java in over a decade, now... I've been reading up on the tools that I'll require. Prior to skimming the _References_, the only Jackson I knew was Michael `¯\_(ツ)_/¯`
 For those of you who don't know this yet:
 * Jackson is a Java library for handling JSON data.
