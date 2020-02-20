@@ -10,7 +10,7 @@ For those of you who don't know this yet:
 First step: reading up on the documentation. Apparently, deserialization in Jackson is similar to the one in python (pickle). I haven't coded or exploited that one but I'm familiar with the PHP one, which I believe is the most common deserialization flavor on the internet. In short, the difference here is going to be that I must code in Java and wrap everything on a spring app.
 To that end, I've found two websites that should help me create a simple webapp for the PoC [1]. I think I'll be using the RESTful version, since it already responds with a JSON "hello world".
 The tricky part will be to figure out a way for building the PoC around this basic webapp. I'm counting on my ability to figure out a couple of dummy classes that I'll be able to include in the project along the way... something like `class Person` or `class User`. _The idea being that I will use those with the Jackson methods that are vulnerable, hence the PoC_
-I haven't decided what the scope is going to be. 'Consequences', according to OWASP [2].
+I haven't decided what the scope is going to be: _Availability_, _Authorization_ or _Access Control_ (OWASP [2]).
 
 I plan on updating this post as I move forward.
 
@@ -47,46 +47,82 @@ To be continued...
 
 ----------------------------------------------------
 # References and links I use
-General References:
-https://github.com/no-sec-marko/java-web-vulnerabilities
-https://www.owasp.org/images/d/d7/Marshaller_Deserialization_Attacks.pdf.pdf
-https://github.com/FasterXML/jackson
-https://www.baeldung.com/jackson-object-mapper-tutorial
-https://cwe.mitre.org/data/definitions/502.html
-https://dan.lousqui.fr/explaining-and-exploiting-deserialization-vulnerability-with-python-en.html
+
+[1a] getting started: https://spring.io/guides/gs/serving-web-content/
+
+[1b] https://spring.io/guides/gs/rest-service/
+
 [2] https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data
 
-Spring tutorials:
-Explicacion sobre que es Spring y cual es su motivacion -> https://www.youtube.com/watch?v=gq4S-ovWVlM
-[1a] getting started -> https://spring.io/guides/gs/serving-web-content/
-[1b]    -> https://spring.io/guides/gs/rest-service/
-[3] https://spring.io/guides/gs/sts/ || https://medium.com/@nditah/how-to-install-spring-tool-suite-3-on-ubuntu-18-30ca339a0787
+[3] https://spring.io/guides/gs/sts/
+
 [4] install spring on VScode https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack
+
 [5] https://gradle.org/install/
+
+
+General References:
+https://github.com/no-sec-marko/java-web-vulnerabilities
+
+https://www.owasp.org/images/d/d7/Marshaller_Deserialization_Attacks.pdf.pdf
+
+https://github.com/FasterXML/jackson
+
+https://www.baeldung.com/jackson-object-mapper-tutorial
+
+https://cwe.mitre.org/data/definitions/502.html
+
+https://dan.lousqui.fr/explaining-and-exploiting-deserialization-vulnerability-with-python-en.html
+
+
+Spring tutorials:
+https://www.youtube.com/watch?v=gq4S-ovWVlM
+
+https://medium.com/@nditah/how-to-install-spring-tool-suite-3-on-ubuntu-18-30ca339a0787
 
 consuming RESTful apps https://spring.io/guides/gs/consuming-rest/
 
-https://spring.io/guides -> https://spring.io/projects -> dowload demo https://start.spring.io/
+https://spring.io/guides
+
+https://spring.io/projects
+
+dowload demo https://start.spring.io/
+
 https://www.javatpoint.com/spring-tutorial
+
 
 Spring serialization:
 https://www.baeldung.com/spring-boot-jsoncomponent
-https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-31509 -> https://snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-31507
+
+https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-31509
+
+https://snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-31507
+
 https://docs.spring.io/spring-boot/docs/1.4.0.M3/reference/html/howto-spring-mvc.html
 
 
 JackSON reserialization vulns 
 https://www.youtube.com/watch?v=Kd75BubLsUo
+
 https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062
+
 https://adamcaudill.com/2017/10/04/exploiting-jackson-rce-cve-2017-7525/
-https://github.com/FasterXML/jackson-databind/issues/1599 -> https://nvd.nist.gov/vuln/detail/CVE-2017-7525
+
+https://github.com/FasterXML/jackson-databind/issues/1599
+
+https://nvd.nist.gov/vuln/detail/CVE-2017-7525
+
 https://github.com/mbechler/marshalsec
 
 
 MadGadget:
-https://stackoverflow.com/questions/42580717/mad-gadget-de-serialisation-vulnerability-java-example -> https://github.com/frohoff/ysoserial 
-        -> https://www.youtube.com/watch?v=VaLSYzEWgVE
-        -> https://github.com/frohoff/ysoserial/tree/master/src/main/java/ysoserial/exploit
+https://stackoverflow.com/questions/42580717/mad-gadget-de-serialisation-vulnerability-java-example
+
+https://github.com/frohoff/ysoserial 
+
+https://www.youtube.com/watch?v=VaLSYzEWgVE
+        
+https://github.com/frohoff/ysoserial/tree/master/src/main/java/ysoserial/exploit
 
 
 How to prevent this:
