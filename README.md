@@ -72,9 +72,10 @@ I searched for an older release within the tutorial's repo. _Spring_ has all of 
 I introduced the same modifications to the code, just so I could debug the _Jackson_ version on the older web-app tutorial.
 <img src="images/version-old_spring_app-server.jpeg" width="650">
 
-Finally, I have a functioning webapp with a version of _Spring_ which is less than a year old and has an indirect vulnerability due to _Jackson v2.9.9_.
+Finally, I have a functioning webapp with a version of _Spring_ which is less than a year old and has an indirect vulnerability due to _Jackson v2.9.9_. Next weekend I'll be reading up on how to properly exploit this and coding up the actual PoC.
 
 
+To be continued...
 ----------------------------------------------------
 
 ----------------------------------------------------
