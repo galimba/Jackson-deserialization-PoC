@@ -30,10 +30,11 @@ Continuing with the tutorial, I learn that `Spring’s MappingJackson2HttpMessag
 
 After a couple of minutes speed reading about Spring annotations, I'm finally ready to run the code (go to `complete/` then `./gradlew bootRun`) Gradle does the job, a Spring initialization log shows up on the terminal and I fire up my browser. `localhost:8080/greeting` responds with `{"id":1,"content":"Hello, World!"}`. Success!
 
-<img src="images/first_spring_app-server.jpeg" width="200">
+<img src="images/first_spring_app-server.jpeg" width="750">
 
 Then I refresh and the id starts to climb, as it should. Trying the parameter: `localhost:8080/greeting?name=foo` gets a proper reply `{"id":4,"content":"Hello, foo!"}`
-<img src="images/first_spring_app-frontend.jpeg" width="200">
+
+<img src="images/first_spring_app-frontend.jpeg" width="500">
 
 So far, so good... but for now, I've got to cut this one short. 
 
@@ -43,7 +44,7 @@ To be continued...
 ----------------------------------------------------
 
 ## Getting it right
-One of the main conditions -for this vulnerability to work- is going to be the _Deserialization of untrusted data_ using _Jackson_. That could perfectly be achieved if I purposely code a vulnerable function. I mean:
+One of the main conditions -for this PoC to work- is going to be the _Deserialization of untrusted data_ using _Jackson_. That could perfectly be achieved if I purposely code a vulnerable function. I mean:
 
 * _step one_ : create whatever _Spring_ app
 * _step two_ : make up some objects to serialize/unserialize explicitly latest _Jackson_ functions
@@ -62,14 +63,14 @@ But first I wanted to check which version of _Jackson_ my _Spring_ app from yest
 * `Version version = com.fasterxml.jackson.databind.cfg.PackageVersion.VERSION;` to set up the `version` variable with the proper _Jackson_ version.
 * `System.out.println("Jackson: "+version);` to expose the _Jackson_ version on runtime.
 
-<img src="images/version-first_spring_app-server.jpeg" width="200">
+<img src="images/version-first_spring_app-server.jpeg" width="650">
 
 Then I fired up the webapp again. It's _Jackson v2.10.0_! Well, so far so good. I need to down-grade this up-to-date version of the code, for an older one. I expected the official repo would be patched at this point, and it was. I don't expect every webapp using _Spring Boot_ in the wild to be patched, though. _Note to self: write a script for crawling github / gitlab in search for this kind of vulnerabilities_
 
 I searched for an older release within the tutorial's repo. _Spring_ has all of it's tutorial uploaded to GitHub. I found a past version [12] from past June that was based on _Spring v2.1.6_. I put it on (old-gs-rest-service) There were some older versions from March and April last year that I tested as well, but apparently they were too old and _Gradle_ had deprecated a couple of functions. I could have tried to make them work but it wasn't worth the trouble. I already had what I needed.
 
 I introduced the same modifications to the code, just so I could debug the _Jackson_ version on the older web-app tutorial.
-<img src="images/old_spring_app-server.jpeg" width="200">
+<img src="images/version-old_spring_app-server.jpeg" width="650">
 
 Finally, I have a functioning webapp with a version of _Spring_ which is less than a year old and has an indirect vulnerability due to _Jackson v2.9.9_.
 
