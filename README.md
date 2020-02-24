@@ -50,11 +50,11 @@ One of the main conditions -for this PoC to work- is going to be the _Deserializ
 * _step two_ : make up some objects to serialize/unserialize explicitly latest _Jackson_ functions
 * _step three_ : explicitly make the code vulnerable, as in this talk [13]
 
-Technically speaking, even though I'd be developing "a _Spring_ app" that uses _Jackson_ and has a known deserialization vulnerability, the issue is the vulnerability wouldn't be on _Spring_. _Andrea Brancaleoni_ at _Doyensec_ wrote a cool breakdown for this kind of issue [11]. In fact, the fact that _Spring_ was used wouldn't be of any consequence in this scenario: I'd only be cheating myself. Since I don't think my challenger meant for me to interpret the original statement in this manner, I'm not gonna move forward with that plan.
+Technically speaking, even though I'd be developing "a _Spring_ app" that uses _Jackson_ and has a known deserialization vulnerability, the issue is the vulnerability wouldn't be on _Spring_. _Andrea Brancaleoni_ at _Doyensec_ wrote a cool breakdown for this kind of issue [11]. In fact, the fact that _Spring_ was used wouldn't be of any consequence in this scenario: I'd only be cheating myself. Since I don't think my challenger meant for me to interpret the original statement in this manner.
 
 Now, I believe the spirit of this PoC is to learn to exploit a version of _Spring_ that is not vulnerable on it's own, but because it implicitly uses a vulnerable _Jackson_ version, any app that uses it is inherinherently and indirectly exploitable. With that in mind, I've found this post [7] by _Brian Vermeer_ from exactly 6 months ago. He describes a vulnerability in _Spring Boot_ (_v2.1.7_). The vulnerability exists because that version uses an old version of `jackson-databind` (_2.9.9_). Apparently, it was quickly fixed in _Jackson v2.9.9.3_. Current release as of today is _2.10.2_ [8].
 
-The _Spring Boot_ version I was using yesterday was _v2.2.0_, but only because that's the one I downloaded from the website to follow the guide. I can imagine how a lot of applications haven't updated their _Spring Boot_ over the past few months. Furthermore, I can picture a lot of developers not having a clue on which _Jackson_ version their _Spring_ code is relying on... and thinking _if it ain't broke, don't fix it_. Note to self: Further reading on this vulnerabilities: search the web for `CVE-2019-14379` and `CVE-2019-14439`.
+The _Spring Boot_ version I was using yesterday was _v2.2.0_, but only because that's the one I downloaded from the website to follow the guide. I can imagine how a lot of applications haven't updated their _Spring Boot_ over the past few months. Furthermore, I can picture a lot of developers not having a clue on which _Jackson_ version their _Spring_ code is relying on... and thinking _if it ain't broke, don't fix it_. Note to self: Further reading on this vulnerabilities: search the web for `CVE-2019-14379`,`CVE-2019-12086` and `CVE-2019-14439`.
 
 So... now the plan is to attempt to use the same tutorial I used yesterday, but with a rolled-back version of _Spring_. That way, I'd be properly simulating our scenario: A year old webapp that has been partially updated but still uses _Jackson v2.9.9_ [9]
 
@@ -78,6 +78,15 @@ Finally, I have a functioning webapp with a version of _Spring_ which is less th
 To be continued...
 ----------------------------------------------------
 
+I started my day reading up on something called _Magic Methods_. There's a lot to catch up on... and I don't particularly enjoy Java. They are a kind of method that classes can implement in order to control how they get serialized/deserialized. And (this is important) _Magic Methods_ get invoked automatically by the deserializer before deserialization has finished.
+
+I can imagine the scenario where my webapp is receiving some `POST` data (let's say: `username`) and deserializing it to use it in a `User` object within the `Greeting`. So what I'm now thinking is that somewhere within the _Spring_ libraries resides the _Jackson_ source code. And within _Jackson_ there's bound to be a _Magic Method_ that could do something nasty, like `exec()` or similar. If the `POST` message were to be crafted in a specific way, instead of deserializing `username` to `User` it might be able to use that _Magic Method_ and either deserialize onto some other class or at least call a bad function before deserializing.
+
+The thing is... you just can't "call" a function from a chunk of `string`. It doesn't work that way. The code would be expecting a `username` to deserialize into a `User`, and that's what it's going to get. The trick would be to give it a `username` that somehow "calls" for another function in order to get a proper value. Something like `POST (...) &username="someExploitableFunction();`
+Will I be able to accomplish something like this? I dunno, I might ask for help in the morning. 
+For now, if you're interested, I've coded a simple example of [Deserialization](simple-deserialization-PoC/SimplerPoC.md)
+
+To be continued...
 ----------------------------------------------------
 
 ----------------------------------------------------
@@ -113,6 +122,8 @@ To be continued...
 
 
 General References:
+https://www.youtube.com/watch?v=t-zVC-CxYjw
+
 https://github.com/no-sec-marko/java-web-vulnerabilities
 
 https://www.owasp.org/images/d/d7/Marshaller_Deserialization_Attacks.pdf.pdf
@@ -176,3 +187,11 @@ https://github.com/frohoff/ysoserial/tree/master/src/main/java/ysoserial/exploit
 
 How to prevent this:
 https://github.com/kantega/notsoserial
+
+https://www.slideshare.net/ikkisoft/defending-against-java-deserialization-vulnerabilities
+
+https://youtu.be/t-zVC-CxYjw?t=1270
+
+
+Conclusion:
+https://m.xkcd.com/2268/
