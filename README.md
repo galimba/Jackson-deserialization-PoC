@@ -77,7 +77,7 @@ Finally, I have a functioning webapp with a version of _Spring_ which is less th
 
 To be continued...
 ----------------------------------------------------
-
+##  _Magic Methods_
 I started my day reading up on something called _Magic Methods_. There's a lot to catch up on... and I don't particularly enjoy Java. They are a kind of method that classes can implement in order to control how they get serialized/deserialized. And (this is important) _Magic Methods_ get invoked automatically by the deserializer before deserialization has finished.
 
 I can imagine the scenario where my webapp is receiving some `POST` data (let's say: `username`) and deserializing it to use it in a `User` object within the `Greeting`. So what I'm now thinking is that somewhere within the _Spring_ libraries resides the _Jackson_ source code. And within _Jackson_ there's bound to be a _Magic Method_ that could do something nasty, like `exec()` or similar. If the `POST` message were to be crafted in a specific way, instead of deserializing `username` to `User` it might be able to use that _Magic Method_ and either deserialize onto some other class or at least call a bad function before deserializing.
