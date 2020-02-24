@@ -2,7 +2,7 @@
 I'm sharing a simpler version of the deserialization vulnerability. I based this example on a very educational talk [1] by _Alexei Kojenov_. Go check that out!
 
 We have a _User.java_ class, and a _Login.java_ command line application that makes use of it. Users may have a _group id_, a _name_ and a _best friend_.
-If the `gid` is set to zero, then we the user `isRoot()`. There's also a `SuperSecretBackDoor` that "someone" coded. Even though we don't need it for this PoC, it'd be interesting if you could exploit it. Let me know in a comment or open up an Issue if you do.
+If the `gid` is set to zero, then we the user `isRoot()`. There's also a `SuperSecretBackDoor` that "someone" coded. Even though we don't need it for this PoC, it'd be interesting if you could exploit it. Let me know in a comment or open up an Issue if you do. [Spoiler](Spoiler.md)
 
 The `Login` class handles the application security. To compile it, run `javac Login.java`.
 To run the app, a user might want to create a login cookie with their own credentials by running `java Login username password`
