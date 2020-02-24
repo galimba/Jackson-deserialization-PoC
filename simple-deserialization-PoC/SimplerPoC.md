@@ -24,7 +24,7 @@ In this scenario, a single character had to be changed (`B` to `A`).
 <img src="images/alice_root.jpeg" width="750">
 
 # How did this happen?
-The issue here is that there is no integrity validation on the input data (the cookie) that's going to be used to create an instance of `User`. Java reads the cookie and interprets it as a valid `User`, so it passes it along.
+The issue here is that there is no integrity validation on the input data (the cookie) that's going to be used to create an instance of `User`. Java reads the cookie and interprets it as a valid `User`, so it passes it along. That specific Character that we switched was the `gid`. If you wanted to double-check, you'd have to base64 decode the cookie and interpret the Java Serialized Object using a hex editor.
 
 # Back to the main repo (Deserialization vulnerability in Jackson)
 Under certain circumstances, an object deserialized using _Jackson_ might exploit a similar vulnerability than this one. Let's say, instead of changing a cookie value, you change the object to reflect a call to a method that has the ability to run commands with `exec()`. That would be SO bad! Epecially if the developers use _Spring_ without knowing that underneath the surface, it's using _Jackson_ in an insecure manner.
