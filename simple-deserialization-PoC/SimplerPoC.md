@@ -18,7 +18,7 @@ Then she logs in with her cookie.
 <img src="images/alice_login.jpeg" width="750">
 
 # The exploit:
-A bad actor might have gotten copy of the source code and realized that if they intercepted a valid cookie and changed it to reflect that the `user` had `gid` equal to zero, then they'd be recognized as `root`!
+A bad actor might have extracted a copy of the source code and realized that if they intercepted a valid cookie and changed it to reflect that the `user` had `gid` equal to zero, then they'd be recognized as `root`!
 In this scenario, a single character had to be changed (`B` to `A`).
 
 <img src="images/alice_root.jpeg" width="750">
