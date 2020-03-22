@@ -152,6 +152,7 @@ dowload demo https://start.spring.io/
 
 https://www.javatpoint.com/spring-tutorial
 
+https://www.baeldung.com/spring-requestmapping
 
 Spring serialization:
 https://www.baeldung.com/spring-boot-jsoncomponent
