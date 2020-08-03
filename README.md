@@ -1,3 +1,9 @@
+# Update: this project was discontinued due to Covid-19, that lead to a shift in priorities.
+Perhaps one day I'll come back to study more deserialization vulnerabilities. For now, I hope the references section ages well, in case anyone wishes to read up on the subject.
+
+
+
+*************************************
 ## The road 'till now and the motivation for this Jackson-deserialization-PoC:
 I've been challenged to write a _Proof of Concept_ that's based on a Spring web app and exploits a _Jackson_ Deserialization vulnerability.
 
